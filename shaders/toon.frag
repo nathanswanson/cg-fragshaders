@@ -8,6 +8,17 @@ uniform sampler2D image;
 
 out vec4 FragColor;
 
-void main() {
-    FragColor = texture(image, texcoord);
+float cartoon(float va) {
+    return round((va * 4.0) / 4.0);
 }
+
+void main() {
+    vec4 colorPixel = texture(image, texcoord);
+    FragColor = vec4(
+        cartoon(colorPixel.x),
+        cartoon(colorPixel.y),
+        cartoon(colorPixel.z),
+        1.0
+    );
+}
+

@@ -9,5 +9,10 @@ uniform sampler2D image;
 out vec4 FragColor;
 
 void main() {
-    FragColor = texture(image, texcoord);
+    vec2 scaledTexture = texcoord * 2.0 - 1.0;
+    float theta = atan(scaledTexture.y, scaledTexture.x);
+    float radius = pow(length(scaledTexture),1.5);
+    vec2 fishEye = vec2(radius * cos(theta), radius * sin(theta));
+    vec2 reScaled = 0.5 * (fishEye + 1.0);
+    FragColor = texture(image, reScaled);
 }
